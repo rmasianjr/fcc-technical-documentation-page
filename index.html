@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link href="https://unpkg.com/ionicons@4.4.7/dist/css/ionicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Technical Documentation Page | NodeJS</title>
+</head>
+<body>
+  <i class="icon ion-md-menu burger"></i>
+  <nav id="navbar">
+    <header>
+      <i class="icon ion-ios-close-circle-outline btn-close"></i> 
+      <i class="icon ion-logo-nodejs"></i> 
+      <p>NodeJS</p> 
+      </header>
+    <ul>
+     <li><a class="nav-link" href="#Introduction">Introduction</a></li>
+     <li><a class="nav-link" href="#Installing_and_Running_NodeJS">Installing and Running NodeJS</a></li>
+     <li><a class="nav-link" href="#Hello_World_Command_Line">Hello World Command Line</a></li>
+     <li><a class="nav-link" href="#Hello_World_in_the_REPL">Hello World in the REPL</a></li>
+     <li><a class="nav-link" href="#Hello_World_HTTP_Server">Hello World HTTP Server</a></li>
+     <li><a class="nav-link" href="#Hello_World_with_Express">Hello World with Express</a></li>
+     <li><a class="nav-link" href="#Reference">Reference</a></li>
+    </ul>
+    <footer>
+      <p> Created by : <a href="https://twitter.com/rmasianjr" target="_blank">Ricardo Masian Jr.</a></p>
+    </footer>
+  </nav>
+  <main id="main-doc">
+    <section class="main-section" id="Introduction">
+      <header>Introduction</header>
+      <article>
+      <p>Node.js is an open-source, cross-platform JavaScript run-time environment that executes JavaScript code outside of a browser. As an asynchronous event driven JavaScript runtime, Node is designed to build scalable network applications. In the following "hello world" example, many connections can be handled concurrently. Upon each connection the callback is fired, but if there is no work to be done, Node will sleep.</p>
+      <div class="editor">
+        <code>
+          <span class="keyword">const</span> <span class="var">http = </span><span class="req"></span><span class="req">require</span><span class="var">(</span><span class="str">'http'</span><span class="var">);</span> 
+          <span class="keyword">const</span> <span class="var">hostname = </span><span class="str">'127.0.0.1'</span><span class="var">;</span>
+          <span class="keyword">const</span> <span class="var">port = </span><span class="val">3000</span><span class="var">;</span>
+  
+          <span class="keyword">const</span> <span class="var">server = http.</span><span class="func">createServer</span><span class="var">((</span><span class="arg">req</span><span class="var">,</span><span class="arg">res</span><span class="var">) => {</span>
+            <span class="var">res.statusCode</span><span class="var"> = </span><span class="val">200</span><span class="var">;</span>
+            <span class="var">res.</span><span class="func">setHeader</span><span class="var">(</span><span class="str">'Content-Type'</span><span class="var">,</span><span class="str">'text/plain'</span><span class="var">);</span>
+            <span class="var">res.</span><span class="func">end</span><span class="var">(</span><span class="str">'Hello World\n'</span><span class="var">);</span>
+          <span class="var">});</span>  
+                
+          <span class="var">server.</span><span class="func">listen</span><span class="var">(port, hostname, () => {</span>
+              <span class="var">console.</span><span class="func">log</span><span class="var">(</span><span class="str">`Server running at http://${</span><span class="var">hostname</span><span class="str">}:{</span><span class="var">port</span><span class="str">}/`</span><span class="var">);</span>
+          <span class="var">});</span>
+        </code>
+      </div>
+      <p>This is in contrast to today's more common concurrency model where OS threads are employed. Thread-based networking is relatively inefficient and very difficult to use. Furthermore, users of Node are free from worries of dead-locking the process, since there are no locks. Almost no function in Node directly performs I/O, so the process never blocks. Because nothing blocks, scalable systems are very reasonable to develop in Node.</p>
+      <p>If some of this language is unfamiliar, there is a full article on <a href="https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/"target="_blank">Blocking vs Non-Blocking</a>.</p>
+      </article>
+    </section>
+    <section class="main-section" id="Installing_and_Running_NodeJS">
+      <header>Installing and Running NodeJS</header>
+      <article>
+        <p>To begin, install Node.js on your development computer.</p>
+        <ul>
+          <li><i class="icon ion-md-radio-button-on"></i><strong> Windows</strong>: Navigate to the <a href="https://nodejs.org/en/download/" target="_blank">download page</a> and download/run the installer.</li>
+          <li><i class="icon ion-md-radio-button-on"></i><strong> Mac</strong>: Navigate to the <a href="https://nodejs.org/en/download/" target="_blank">download page</a>and download/run the installer. Alternatively, you can install Node via Homebrew using brew install node. Homebrew is a command-line package mananger for Macintosh, and more information about it can be found on the <a href="https://brew.sh/" target="_blank">Homebrew website</a>.</li>
+        </ul> 
+        <p>To run a Node.js program, simply run node app.js or nodejs app.js, where app.js is the filename of your node app source code. You do not need to include the .js suffix for Node to find the script you'd like to run.</p>
+        <p>Alternatively under <strong>UNIX-based</strong> operating systems, a Node program may be executed as a terminal script. To do so, it needs to begin with a shebang pointing to the Node interpreter, such as #!/usr/bin/env node. The file also has to be set as executable, which can be done using chmod. Now the script can be directly run from the command line.</p>
+      </article>
+    </section>
+    <section class="main-section" id="Hello_World_Command_Line">
+      <header>Hello World Command Line</header>
+      <article>
+        <p>Node.js can also be used to create command line utilities. The example below reads the first argument from the command line and prints a Hello message.</p>
+        <p>To run this code on an <strong>Unix System</strong>:</p>
+        <ol>
+          <li>Create a new file and paste the code below. The filename is irrelevant.</li>
+          <li>Make this file executable with chmod 700 FILE_NAME</li>
+          <li>Run the app with ./APP_NAME David</li>
+        </ol>
+        <p>On <strong>Windows</strong> you do step 1 and run it with node APP_NAME David</p>
+        <p>#!/usr/bin/env node</p>
+        <div class="editor">
+          <code>
+            <span class="str">'use strict'</span><span class="var">;</span>
+            
+            /* The command line arguments are stored in the `process.argv` array,
+              which has the following structure: 
+              [0] The path of the executable that started the Node.js process
+              [1] The path to this application
+              [2-n] the command line arguments
+            
+              Example: ['/bin/node', '/path/to/yourscript', 'arg1', 'arg2', ... ]
+              src: https://nodejs.org/api/process.html#process_process_argv 
+            */
+            
+            // Store the first argument as username.
+            <span class="keyword">var </span><span class="var">username = process.argv[</span><span class="val">2</span><span class="var">];</span>
+            
+            // Check if the username hasn't been provided.
+            <span class="keyword">if </span><span class="var">(</span><span class="req">!</span><span class="var">username) {</span> 
+              // Extract the filename 
+              <span class="keyword">var </span><span class="var">appName = process.argv[</span><span class="val">1</span><span class="var">].</span><span class="func">split</span><span class="var">(</span><span class="req">require</span><span class="var">(</span><span class="str">'path'</span><span class="var">).sep).</span><span class="func">pop</span><span class="var">();</span>
+              
+              // Give the user an example on how to use the app. 
+              <span class="var">console.</span><span class="func">error</span><span class="var">(</span><span class="str">'Missing argument! Example: %s YOUR_NAME'</span><span class="var">, appName);</span>
+            
+              // Exit the app (success: 0, error: 1). 
+              // An error will stop the execution chain. For example:
+              // ./app.js && ls -> won't execute ls 
+              // ./app.js David && ls -> will execute ls 
+              <span class="var">process.</span><span class="func">exit</span><span class="var">(</span><span class="val">1</span><span class="var">);</span>
+            <span class="var">}</span>
+            
+            // Print the message to the console.
+            <span class="var">console.</span><span class="func">log</span><span class="var">(</span><span class="str">'Hello %s!'</span><span class="var">, username);</span> 
+          </code>
+        </div>
+      </article>
+    </section>
+    <section class="main-section" id="Hello_World_in_the_REPL">
+      <header>Hello World in the REPL</header>
+      <article>
+        <p>When called without arguments, Node.js starts a <strong>REPL (Read-Eval-Print-Loop)</strong> also known as the <em>“Node shell”</em>.</p>
+        <p>At a command prompt type node.</p>
+        <div class="editor">
+          <code>
+            <span class="var">$</span> <span class="arg">node</span>
+            <span class="var">></span> 
+          </code>
+        </div>
+        <p>At the Node shell prompt > type "Hello World!"</p>
+        <div class="editor">
+          <code> 
+            <span class="var">$ </span><span class="arg">node</span>
+            <span class="var">> </span><span class="arg">"Hello World!"</span>
+            <span class="var">'Hello World!'</span> 
+          </code>
+        </div>
+      </article>
+    </section>
+    <section class="main-section" id="Hello_World_HTTP_Server">
+      <header>Hello World HTTP Server</header>
+      <article>
+        <p>In this example we'll create an HTTP server listening on port 1337, which sends Hello, World! to the browser. Note that, instead of using port 1337, you can use any port number of your choice which is currently not in use by anyother service.</p>
+        <p>The <strong>http</strong> module is a Node.js core module (a module included in Node.js's source, that does not require installing additional resources). The http module provides the functionality to create an HTTP server using the http.createServer() method. To create the application, create a file containing the following JavaScript code.</p>
+        <div class="editor">
+          <code>
+            <span class="keyword">const </span><span class="var">http = </span><span class="req">require</span><span class="var">(</span><span class="str">'http'</span><span class="var">);</span>  // Loads the http module
+            
+            <span class="var">http.</span><span class="func">createServer</span><span class="var">((</span><span class="arg">request</span><span class="var">,</span><span class="arg">response</span><span class="var">) => {</span>
+            
+              // 1. Tell the browser everything is OK (Status code 200), and the data is in plain text
+              <span class="var">response.</span><span class="func">writeHead</span><span class="var">(</span><span class="val">200</span><span class="var">,{ </span><span class="str">'Content-Type'</span><span class="var">: </span><span class="str">'text/plain' </span><span class="var">});</span> 
+            
+              // 2. Write the announced text to the body of the page
+              <span class="var">response.</span><span class="func">write</span><span class="var">(</span><span class="str">'Hello, World!\n'</span><span class="var">);</span> 
+            
+              // 3. Tell the server that all of the response headers and body have been sent 
+              <span class="var">response.</span><span class="func">end</span><span class="var">();</span>
+            
+          <span class="var">}).</span><span class="func">listen</span><span class="var">(</span><span class="val">1337</span><span class="var">);</span> // 4. Tells the server what port to be on
+          </code>
+        </div>
+        <p>Save the file with any file name. In this case, if we name it hello.js we can run the application by going to the directory the file is in and using the following command: </p>
+        <div class="editor">
+          <code> 
+            <span class="var">$ </span><span class="arg">node hello.js</span>
+          </code>
+        </div>
+        <p>The created server can then be accessed with the URL <a href="http://localhost:1337" target="_blank">http://localhost:1337</a> or <a href="http://127.0.0.1:1337" target="_blank">http://127.0.0.1:1337</a>in the browser.</p>
+      </article>
+    </section>
+    <section class="main-section" id="Hello_World_with_Express">
+      <header>Hello World with Express</header>
+      <article>
+        <p>The following example uses Express to create an HTTP server listening on port 3000, which responds with "Hello, World!". Express is a commonly-used web framework that is useful for creating HTTP APIs. </p>
+        <p>First, create a new folder, e.g. myApp. Go into myApp and make a new JavaScript file containing the following code (let's name it hello.js for example). Then install the express module using <em>npm install --save express</em> from the command line. Refer to this documentation for more information on how to install packages.</p>
+        <div class="editor">
+          <code>
+            // Import the top-level function of express
+            <span class="keyword">const </span><span class="var">express = </span><span class="req">require</span><span class="var">(</span><span class="str">'express'</span><span class="var">);</span> 
+            
+            // Creates an Express application using the top-level function 
+            <span class="keyword">const </span><span class="var">app = </span><span class="func">express</span><span class="var">();</span> 
+            
+            // Define port number as 3000 
+            <span class="keyword">const </span><span class="var">port = </span><span class="val">3000</span><span class="var">;</span> 
+            
+            // Routes HTTP GET requests to the specified path "/" with the specified callback function 
+            <span class="var">app.</span><span class="req">get</span><span class="var">(</span><span class="str">'/'</span><span class="var">, </span><span class="func">function</span><span class="var">(</span><span class="arg">request</span><span class="var">,</span><span class="arg">response</span><span class="var">) {</span>
+            <span class="var">response.</span><span class="func">send</span><span class="var">(</span><span class="str">'Hello, World!'</span><span class="var">);</span> 
+            <span class="var">});</span>
+            
+            // Make the app listen on port 3000 
+            <span class="var">app.</span><span class="func">listen</span><span class="var">(port, </span><span class="func">function</span><span class="var">() {</span>
+              <span class="var">console.</span><span class="func">log</span><span class="var">(</span><span class="str">'Server listening on http://localhost'</span><span class="keyword"> + </span><span class="var">port);</span>
+            <span class="var">});</span>
+          </code>
+        </div>
+        <p>From the command line, run the following command:</p>
+        <div class="editor">
+          <code>
+            <span class="var">$ </span><span class="arg">node hello.js</span> 
+          </code>
+        </div>
+        <p>Open your browser and navigate to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> or <a href="http://127.0.0.1:3000" target="_blank">http://127.0.0.1:3000</a>to see the response.</p>
+        <p>For more information about the Express, you can check <a href="https://expressjs.com/" target="_blank">Express Framework</a></p>
+      </article>
+    </section>
+    <section class="main-section" id="Reference">
+      <header>Reference</header>
+      <p>All documentation in this page is taken from: </p>
+      <ul>
+        <li><a href="https://nodejs.org/dist/latest-v10.x/docs/api/" target="_blank"><i class="icon ion-md-return-right"></i> Node.js Documentation</a></li>
+        <li><a href="https://books.goalkicker.com/NodeJSBook/" target="_blank"><i class="icon ion-md-return-right"></i> Node.js Notes for Professionals</a></li>
+      </ul>
+    </section>
+  </main>
+  <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+</html>
